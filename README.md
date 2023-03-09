@@ -1,6 +1,9 @@
-# GP_LSOA_Attribution
+## Population-weighted attribution of GP data to LSOAs
 
- This is for attributing GP-level **QOF data** to LSOAs, but in theory it should work with any GP-level count+denominator data on the PHE website.
+ This was developed to attribute GP-level **QOF data** to LSOAs, but in theory it should work with any GP-level count+denominator data on the PHE website.
+
+ As usual, the R script is run in the Terminal (Windows) and takes a user-supplied 'driver file' which provides instructions as to which PHE datasets for which years are to be processed, along with a couple of additional parameters. 
+
 
  Instructions and further information to be provided!
 

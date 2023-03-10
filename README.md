@@ -14,7 +14,7 @@
 - Output is sent to the *./output* directory (which will be created if necessary)
 - Every effort has been made to ensure the script fails gracefully and informatively (e.g. because of missing or malformed input data), but .......!
 
-###What it does
+### What it does
 Following a variety of data integrity checks, the script:
 - Downloads NHS Digital GP-LSOA population lookup files (see below) for 2014/15 to 2021/22. The downloaded files are saved locally and, if they remain available, this step will be skipped.
 - Reads the first line of the designated driver file for instructions about:
@@ -26,13 +26,13 @@ Following a variety of data integrity checks, the script:
 - Extracts data from the indicator dataset for the year or range of years specified.
 - Applying the specified, followinf and, following the instructions in the driver file, 
 
-#####Formatting the driver file
+##### Formatting the driver file
 About the driver file
 
-#####NHS Digital GP-LSOA Population Lookup data
+##### NHS Digital GP-LSOA Population Lookup data
 About the GP-Population data
 
-#####PHE (QOF) Data
+##### PHE (QOF) Data
 About the PHE (QOF) data
 
 

@@ -4,7 +4,7 @@
  <p style="color:red">Finish README</p>
  <p style="color:red">zipfile to be added</p>
  
- This was developed to attribute GP-level **QOF data** to LSOAs, but in theory it should work with any GP-level count & denominator data on the PHE website.
+ This was developed to attribute GP-level **QOF data** to LSOAs, but in theory should work with any GP-level count & denominator data on the PHE website.
 
  As usual, the R script (written using R version 4.2.2) is run in the Terminal (Windows) and takes a user-supplied 'driver file' which provides instructions as to which PHE datasets for which years are to be processed, along with a couple of additional parameters. 
 
@@ -34,7 +34,7 @@ Following a variety of data integrity checks, the script:
 - Writes output as requested to .csv files in the *./output* directory.
 
 ##### Formatting the driver file
-About the driver file  > include illustrative table
+About the driver file  > include illustrative table and make sure rules really clear
 
 ##### Formatting the attribute data
 About the attribute data > must have 32844 English LSOAs and LSOA column must be named LSOA_CODE
@@ -43,17 +43,22 @@ About the attribute data > must have 32844 English LSOAs and LSOA column must be
 About the files that it needs - get from github if lost
 
 ##### NHS Digital GP-LSOA Population Lookup data
-About the GP-Population data - where from, metadata, quality?
+About the GP-Population data - where from, m/f/a, quality?
 
 ##### PHE (QOF) Data
-About the PHE (QOF) data - where to get list
+About the PHE (QOF) data - where to get list of ID's, how to find what is available at GP level
 
 ##### Observations and warnings
 2017 & 2018 and what they tell us about population lookup quality
 data 
+what might need to do to use other PHE data
+principle of allocating non-contiguous data might be useful for other applications - but must be able to assume that no selection bias
 
 ##### Troubleshooting
 When come back to this remember vulnerability to url changes
-Can add additional years of PHE / NHS Digital data into hard script
-Zero data doesn't make the script fall down
+Can add additional years of PHE / NHS Digital data, but only into  into hard script
+Zero PHE data doesn't make the script fall down - but easy to see in output
+Zero LSOA data can also happen - does in 2017 & 18
+Script is heavily commented - should be possible to adapt
+
 

@@ -1,5 +1,9 @@
 ## Population-weighted attribution of GP data to LSOAs
 
+ <p style="color:red">DRAFT (as of 9/3/23)</p>
+ <p style="color:red">Finish README</p>
+ <p style="color:red">zipfile to be added</p>
+ 
  This was developed to attribute GP-level **QOF data** to LSOAs, but in theory it should work with any GP-level count & denominator data on the PHE website.
 
  As usual, the R script (written using R version 4.2.2) is run in the Terminal (Windows) and takes a user-supplied 'driver file' which provides instructions as to which PHE datasets for which years are to be processed, along with a couple of additional parameters. 
@@ -9,7 +13,7 @@
 - Unzip into local directory (make sure R can access - set PATH if necessary)
 - Open Terminal and navigate to the local directory with the **GP_Attribution.R** script
 - To run, type in Terminal: `Rscript GP_Attribution.R <driver.file> <attribute.file>`
-- The `<driver.file>` and `<attribute.file>` areguments are optional - if left blank *DriverFileExample.csv* and *LSOA_CoastalFlag.csv* will be used.  This is sensible for a first run to illustrate the different outputs that can be produced.
+- The `<driver.file>` and `<attribute.file>` arguments are optional - if left blank *DriverFileExample.csv* and *LSOA_CoastalFlag.csv* will be used.  This is sensible for a first run to illustrate the different outputs that can be produced.
 - Progress is reported on screen - which depends on internet access as a variety of data files must be downloaded
 - Output is sent to the *./output* directory (which will be created if necessary)
 - Every effort has been made to ensure the script fails gracefully and informatively (e.g. because of missing or malformed input data), but .......!
@@ -24,17 +28,32 @@ Following a variety of data integrity checks, the script:
     4. whether, if a single year is selected, case and denominator data are to be included alongside rates or, if a range of years is selected, whether output is to be for (a) each year separately or (b) averaged over the whole date range (in which case annual count and denominator data is provided alongside the average rate).
 - Downloads the specified indicator dataset from the PHE website
 - Extracts data from the indicator dataset for the year or range of years specified.
-- Applying the specified, followinf and, following the instructions in the driver file, 
+- Calculates the GP-level rate for every GP in the PHE dataset and links it with GP-LSOA 'flow' data for the appropriate year, calculating the 'expected' number of cases in each unique GP-LSOA combination as the product of the PHE rate and GP-LSOA population.
+- Aggregates all 'expected cases' and populations to LSOA level
+- Adds default or user-supplied LSOA attribute data if requested
+- Writes output as requested to .csv files in the *./output* directory.
 
 ##### Formatting the driver file
-About the driver file
+About the driver file  > include illustrative table
+
+##### Formatting the attribute data
+About the attribute data > must have 32844 English LSOAs and LSOA column must be named LSOA_CODE
+
+##### Supplied (necessary) files
+About the files that it needs - get from github if lost
 
 ##### NHS Digital GP-LSOA Population Lookup data
-About the GP-Population data
+About the GP-Population data - where from, metadata, quality?
 
 ##### PHE (QOF) Data
-About the PHE (QOF) data
+About the PHE (QOF) data - where to get list
 
+##### Observations and warnings
+2017 & 2018 and what they tell us about population lookup quality
+data 
 
-
+##### Troubleshooting
+When come back to this remember vulnerability to url changes
+Can add additional years of PHE / NHS Digital data into hard script
+Zero data doesn't make the script fall down
 

@@ -4,11 +4,6 @@
 
 args = commandArgs(trailingOnly=TRUE)
 
-# For manual testing only #####################################################################
-# setwd("H:/000_Coastal_Related/03_QOF_Practice_Attribution/000_gitfolders/GP_LSOA_Attribution")
-# args=c("DriverFileExample.csv","LSOA_CoastalFlag.csv")
-###############################################################################################
-
 # Description----
 
 # Designed for use with QOF data - batch file version

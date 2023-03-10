@@ -48,6 +48,8 @@ About the GP-Population data - where from, m/f/a, quality?
 ##### PHE (QOF) Data
 About the PHE (QOF) data - where to get list of ID's, how to find what is available at GP level
 
+https://fingertips.phe.org.uk/api/available_data?area_type_id=7
+
 ##### Observations and warnings
 2017 & 2018 and what they tell us about population lookup quality
 data 

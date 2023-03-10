@@ -62,13 +62,19 @@ Each line of the driver file is processed separately and in turn
 The script will `left-join()` any user-supplied file of LSOA attribute data to the output.  This must be provided as a .csv file with the LSOA column named LSOA_CODE and include all 32844 English LSOAs. The script strips out all non-English LSOAs that appear in the GP<>LSOA lookup file, and will (should!) ignore any non English LSOAs in the attribute file.  **Note** that this uses 2011 LSOAs - it will need to be updated when PHE & NHS Digital start using 2021 LSOAs (or, worse, incorporate a best-fit look up if one starts using 2021 LSOAs whilst the still uses 2021 LSOAs!).
 
 ##### Supplied (necessary) files
-The script downloads PHE Indicator and NHS Digital population lookup files (see below), but also uses *LSOAMasterList.csv* (which is included in the zipfile).About the files that it needs - get from github if lost
+The script initialises by downloading all NHS Digital population lookup files (unless already saved in the path), and then downloads whichever PHE Indicator datasets are specified.  The script also uses *LSOAMasterList.csv*, which is included in the zipfile.
 
 ##### NHS Digital GP-LSOA Population Lookup data
-About the GP-Population data - where from, m/f/a, quality?
+NHS Digital provide quarterly and then monthly 'snapshot' data on "Patients registered at GP Practices (https://digital.nhs.uk/data-and-information/publications/statistical/patients-registered-at-a-gp-practice).
+
+This includes information on the number of males, females by 5-year bands and, in recent years, by single-year-of-age.  It also includes the number of males and females in each LSOA who attend each GP.  There is no age-breakdown for this GP<>LSOA flow data.
+
+The PHE indicator data is produced for fiscal years (April-March) so we only require a single set of GP<>LSOA flow data for each year and I (arbitrarily) use NHS Digital GP<>LSOA flow data for each April, such that population data for April 2016 is used with respect to PHE indicator data for 2016/17.
+
+It is difficult to assess the reliability of the NHS Digital GP<>LSOA population data, not least as it will be affected by the constant churn of GPs and their patient lists. There is certainly an issue for 2017 & 2018 as there are a number of LSOAs that don't appear in the dataset - implying that data for the GPs that must be supplying them is missing. (See below for potential upgrade.)
 
 ##### PHE (QOF) Data
-About the PHE (QOF) data - where to get list of ID's, how to find what is available at GP level
+Public Health England's 'Fingertips' database (https://fingertips.phe.org.uk/) can be accessed using API. The GingertipsAbout the PHE (QOF) data - where to get list of ID's, how to find what is available at GP level
 
 https://fingertips.phe.org.uk/api/available_data?area_type_id=7
 
@@ -79,6 +85,7 @@ what might need to do to use other PHE data
 principle of allocating non-contiguous data might be useful for other applications - but must be able to assume that no selection bias
 
 ##### Troubleshooting
+Download speed / responsiveness of the PHE and NHS Digital sites.
 When come back to this remember vulnerability to url changes
 Can add additional years of PHE / NHS Digital data, but only into  into hard script
 Zero PHE data doesn't make the script fall down - but easy to see in output

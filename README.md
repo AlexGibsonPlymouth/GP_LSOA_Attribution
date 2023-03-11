@@ -1,9 +1,5 @@
 ## Population-weighted attribution of GP data to LSOAs
 
- <p style="color:red">DRAFT (as of 9/3/23)</p>
- <p style="color:red">Finish README</p>
- <p style="color:red">zipfile to be added</p>
- 
  This was developed to attribute GP-level **QOF data** to LSOAs, but in theory should work with any GP-level count & denominator data on the PHE website.
 
  As usual, the R script (written using R version 4.2.2) is run in the Terminal (Windows/Ubuntu) and takes a user-supplied 'driver file' which provides instructions as to which PHE datasets for which years are to be processed, along with a couple of additional parameters. 
@@ -73,31 +69,38 @@ The PHE indicator data is for fiscal years (April-March) so we only require a si
 
 It is difficult to assess the reliability of the NHS Digital GP<>LSOA population data, not least because it must be affected by the constant churn of GPs and their patient lists. There is certainly an issue for 2017 & 2018 as there are a number of LSOAs that don't appear in the dataset (54 & 12 respectively) - implying that data for the GPs that must be supplying them is missing. (See below for potential upgrade.)
 
-##### PHE (QOF) Data
+##### Public Health England Data (includes QOF)
 Public Health England's 'Fingertips' database (https://fingertips.phe.org.uk/) is accessed using API (https://fingertips.phe.org.uk/profile/guidance/supporting-information/api). 
 
-The script, obviously, will only work with datasets which include GP data - a relatively small subset of the whole.  The key API command in the script (in this case to download the ID=212 dataset)  is:
+The script, obviously, will only work with indicator datasets which include GP data, which is a relatively small subset of the whole.  The key API command in the script (in this case to download the ID=212 dataset)  is:
 `https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?indicator_ids=212&child_area_type_id=7&parent_area_type_id=15`          
              
-             
-The GingertipsAbout the PHE (QOF) data - where to get list of ID's, how to find what is available at GP level
+- Where `child_area_type_id=7` refers to GPs and `parent_area_type_id=15` refers to England. 
 
-https://fingertips.phe.org.uk/api/available_data?area_type_id=7
+A listing of all indicator dataset IDs and descriptive names is available from https://fingertips.phe.org.uk/documents/api_annex.ods.
 
-##### Observations and warnings
-2017 & 2018 and what they tell us about population lookup quality
-data 
-what might need to do to use other PHE data
-principle of allocating non-contiguous data might be useful for other applications - but must be able to assume that no selection bias
-Perhaps should use population from across all months - def need to do this if I ever want to use 2017 & 18 data.
+A JSON (but readable) listing of all PHE indicator datasets which include GP data can be obtained by copying the following into your browser address: https://fingertips.phe.org.uk/api/available_data?area_type_id=7. Not all of these datasets will be suitable, though the QOF data should be. 
 
-##### Troubleshooting
-Download speed / responsiveness of the PHE and NHS Digital sites.
-When come back to this remember vulnerability to url changes
-Can add additional years of PHE / NHS Digital data, but only into  into hard script
-Zero PHE data doesn't make the script fall down - but easy to see in output
-Zero LSOA data can also happen - does in 2017 & 18
-Script is heavily commented - should be possible to adapt
-Think about upper/lower estimates.
+- If a request is made for a year for which indicator data is unavailable (e.g. a file exists and includes data for, say, 2016-2018, but the request is for 2020 data), then the program will run and zeros will be returned for that year.  All output will need to be checked!
+
+##### Troubleshooting and Observations
+- The major risk going forward is that PHE or NHS Digital change the html addresses of their datasets.  If there is no response when the script reports "Downloading ...." then this may be the problem.
+
+- Even if the html addresses are correct, the script is dependant on a reasonably quick response from PHE / NHS Digital servers. I have had no problems with this so far, though response times can sometimes be up to 30 seconds or so.
+
+- Access to the PHE / NHS Digital data does not currently require authorisation, and I haven't met download limits. Both these might change in the future.
+
+- It should be possible to add new NHS Digital GP-LSOA population lookup files, but these are hard-coded so the script itself will need to be edited. The script is extensively commented (and the section with NHS Digital filenames is obvious) so that shouldn't be difficult.
+
+- The script extracts and uses data from PHE indicator dataset from columns named "Indicator Name","Area Code","Area Name","Time period" "Count","Denominator","Area Type". An error will be returned if these columns are unavailable.  It is unlikely that current datasets will be changed, but new datasets may use different column names, which will be annoying!!  
+
+- If I end up needing to use 2017 and/or 2018 data it will be necessary to produce a single GP-LSOA lookup based on all available months for each year.  That should avoid zero population LSOAs arising because lookup data for the GPs which serve those LSOAs is missing. This is probably a sensible **UPDATE** for all years, although it will probably have marginal impact.
+
+- It's worth keeping this technique/script in mind for any other attribution of data to LSOAs, although remember that it rests on the assumption that there is no socio-economic or other bias in the distribution of populations between LSOAs. It would not, therefore, be suitable for attributing, for instance, data relating to pupils at schools to LSOAs.
+
+
+---
+11 March 2023
+
 
 
